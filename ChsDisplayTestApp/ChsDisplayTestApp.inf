@@ -1,0 +1,36 @@
+## @file
+#  Chinese Display Test Application
+#
+#  This application tests whether the EFI firmware supports Chinese character display
+#  by showing a mixed string of Chinese and English characters.
+#
+#  Copyright (c) 2026, hzyry2046. All rights reserved.<BR>
+#  SPDX-License-Identifier: BSD-2-Clause-Patent
+#
+##
+
+[Defines]
+  INF_VERSION    = 0x00010005
+  BASE_NAME      = ChsDisplayTestApp
+  FILE_GUID      = 61B1E4E7-8EED-4087-BF72-824C64212112
+  MODULE_TYPE    = UEFI_APPLICATION
+  VERSION_STRING = 1.0
+  ENTRY_POINT    = ChsDisplayTestAppMain
+
+[Sources]
+  ChsDisplayTestApp.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+
+[LibraryClasses]
+  UefiApplicationEntryPoint
+  UefiLib
+  BaseMemoryLib
+  MemoryAllocationLib
+  UefiBootServicesTableLib
+
+[Protocols]
+  gEfiHiiFontProtocolGuid
+  gEfiHiiDatabaseProtocolGuid
+  gEfiGraphicsOutputProtocolGuid

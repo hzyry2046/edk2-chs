@@ -1,0 +1,43 @@
+## @file
+#  Chinese Display Test Application Package
+#
+#  This package contains the Chinese Display Test Application.
+#
+#  Copyright (c) 2026, hzyry2046. All rights reserved.<BR>
+#  SPDX-License-Identifier: BSD-2-Clause-Patent
+#
+##
+
+[Defines]
+  DEC_SPECIFICATION              = 0x00010005
+  PACKAGE_NAME                   = ChsDisplayTestAppPkg
+  PACKAGE_UNI_FILE               = ChsDisplayTestAppPkg.uni
+  PACKAGE_GUID                   = 12345678-1234-1234-1234-123456789ABC
+  PACKAGE_VERSION                = 0.1
+
+[Includes]
+  Include
+
+[LibraryClasses]
+  ## SOMETIMES_CONSUMES ##  BaseLib
+  ## SOMETIMES_CONSUMES ##  DebugLib
+  ## SOMETIMES_CONSUMES ##  MemoryAllocationLib
+  ## SOMETIMES_CONSUMES ##  UefiApplicationEntryPoint
+  ## SOMETIMES_CONSUMES ##  UefiBootServicesTableLib
+  ## SOMETIMES_CONSUMES ##  UefiLib
+  ## SOMETIMES_CONSUMES ##  UefiRuntimeServicesTableLib
+  ## SOMETIMES_CONSUMES ##  UefiHiiServicesLib
+
+[Guids]
+  ## PROTOCOL ##  gEfiHiiFontProtocolGuid
+  ## PROTOCOL ##  gEfiHiiDatabaseProtocolGuid
+  ## PROTOCOL ##  gEfiGraphicsOutputProtocolGuid
+
+[Ppis]
+  ## PPI ##  gEfiCallerIdGuid
+
+[Protocols]
+  ## PROTOCOL ##  gEfiLoadedImageProtocolGuid
+  ## PROTOCOL ##  gEfiHiiFontProtocolGuid
+  ## PROTOCOL ##  gEfiHiiDatabaseProtocolGuid
+  ## PROTOCOL ##  gEfiGraphicsOutputProtocolGuid
