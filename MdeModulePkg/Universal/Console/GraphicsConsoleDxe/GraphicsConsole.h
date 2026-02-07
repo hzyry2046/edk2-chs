@@ -40,6 +40,8 @@ typedef union {
   EFI_WIDE_GLYPH      WideGlyph;
 } GLYPH_UNION;
 
+extern EFI_WIDE_GLYPH                gFontWideGlyphData[];
+extern UINT32 mWideFontSize;
 //
 // Device Structure
 //

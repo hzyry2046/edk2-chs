@@ -9,6 +9,9 @@ SPDX-License-Identifier: BSD-2-Clause-Patent
 
 #include "GraphicsConsole.h"
 
+extern EFI_WIDE_GLYPH mFontWideGlyphData[];
+extern UINT32 mWideFontSize;
+
 //
 // Graphics Console Device Private Data template
 //
@@ -1763,38 +1766,35 @@ FlushCursor (
 
 /**
   HII Database Protocol notification event handler.
-
   Register font package when HII Database Protocol has been installed.
-
   @param[in] Event    Event whose notification function is being invoked.
   @param[in] Context  Pointer to the notification function's context.
 **/
 VOID
 EFIAPI
 RegisterFontPackage (
-  IN  EFI_EVENT  Event,
-  IN  VOID       *Context
+  IN  EFI_EVENT       Event,
+  IN  VOID            *Context
   )
 {
-  EFI_STATUS                       Status;
-  EFI_HII_SIMPLE_FONT_PACKAGE_HDR  *SimplifiedFont;
-  UINT32                           PackageLength;
-  UINT8                            *Package;
-  UINT8                            *Location;
-  EFI_HII_DATABASE_PROTOCOL        *HiiDatabase;
-
+  EFI_STATUS                           Status;
+  EFI_HII_SIMPLE_FONT_PACKAGE_HDR      *SimplifiedFont;
+  UINT32                               PackageLength;
+  UINT8                                *Package;
+  UINT8                                *Location;
+  EFI_HII_DATABASE_PROTOCOL            *HiiDatabase;
+  EFI_GUID                             mChineseFontPackageListGuid = {0x9f7bc74d, 0x0549, 0x4416, {0x86, 0x85, 0xc7, 0x16, 0xcd, 0x61, 0x0b, 0x74}};
   //
   // Locate HII Database Protocol
   //
   Status = gBS->LocateProtocol (
                   &gEfiHiiDatabaseProtocolGuid,
                   NULL,
-                  (VOID **)&HiiDatabase
+                  (VOID **) &HiiDatabase
                   );
   if (EFI_ERROR (Status)) {
     return;
   }
-
   //
   // Add 4 bytes to the header for entire length for HiiAddPackages use only.
   //
@@ -1811,23 +1811,16 @@ RegisterFontPackage (
   //    |     gUsStdNarrowGlyphData      |
   //    |                                |
   //    +--------------------------------+
-
-  PackageLength = sizeof (EFI_HII_SIMPLE_FONT_PACKAGE_HDR) + mNarrowFontSize + 4;
-  Package       = AllocateZeroPool (PackageLength);
-  if (Package == NULL) {
-    ASSERT (Package != NULL);
-    return;
-  }
-
-  WriteUnaligned32 ((UINT32 *)Package, PackageLength);
-  SimplifiedFont                       = (EFI_HII_SIMPLE_FONT_PACKAGE_HDR *)(Package + 4);
-  SimplifiedFont->Header.Length        = (UINT32)(PackageLength - 4);
+  PackageLength   = sizeof (EFI_HII_SIMPLE_FONT_PACKAGE_HDR) + mNarrowFontSize + 4;
+  Package = AllocateZeroPool (PackageLength);
+  ASSERT (Package != NULL);
+  WriteUnaligned32((UINT32 *) Package,PackageLength);
+  SimplifiedFont = (EFI_HII_SIMPLE_FONT_PACKAGE_HDR *) (Package + 4);
+  SimplifiedFont->Header.Length        = (UINT32) (PackageLength - 4);
   SimplifiedFont->Header.Type          = EFI_HII_PACKAGE_SIMPLE_FONTS;
-  SimplifiedFont->NumberOfNarrowGlyphs = (UINT16)(mNarrowFontSize / sizeof (EFI_NARROW_GLYPH));
-
-  Location = (UINT8 *)(&SimplifiedFont->NumberOfWideGlyphs + 1);
+  SimplifiedFont->NumberOfNarrowGlyphs = (UINT16) (mNarrowFontSize / sizeof (EFI_NARROW_GLYPH));
+  Location = (UINT8 *) (&SimplifiedFont->NumberOfWideGlyphs + 1);
   CopyMem (Location, gUsStdNarrowGlyphData, mNarrowFontSize);
-
   //
   // Add this simplified font package to a package list then install it.
   //
@@ -1839,8 +1832,31 @@ RegisterFontPackage (
                  );
   ASSERT (mHiiHandle != NULL);
   FreePool (Package);
+  /*
+    Add Chinese font
+  */  
+  PackageLength   = sizeof (EFI_HII_SIMPLE_FONT_PACKAGE_HDR) + mWideFontSize + 4;
+  Package = AllocateZeroPool (PackageLength);
+  ASSERT (Package != NULL);
+  WriteUnaligned32((UINT32 *) Package,PackageLength);
+  SimplifiedFont = (EFI_HII_SIMPLE_FONT_PACKAGE_HDR *) (Package + 4);
+  SimplifiedFont->Header.Length        = (UINT32) (PackageLength - 4);
+  SimplifiedFont->Header.Type          = EFI_HII_PACKAGE_SIMPLE_FONTS;
+  SimplifiedFont->NumberOfWideGlyphs = (UINT16) (mWideFontSize / sizeof (EFI_WIDE_GLYPH));
+  Location = (UINT8 *) (&SimplifiedFont->NumberOfWideGlyphs + 1);
+  CopyMem (Location, mFontWideGlyphData, mWideFontSize);
+  //
+  // Add this simplified font package to a package list then install it.
+  //
+  mHiiHandle = HiiAddPackages (
+                 &mChineseFontPackageListGuid,
+                 NULL,
+                 Package,
+                 NULL
+                 );
+  ASSERT (mHiiHandle != NULL);
+  FreePool (Package);
 }
-
 /**
   The user Entry Point for module GraphicsConsole. The user code starts with this function.
 

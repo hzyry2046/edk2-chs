@@ -32,6 +32,7 @@
 [Sources]
   ComponentName.c
   LaffStd.c
+  CHSFont.c
   GraphicsConsole.c
   GraphicsConsole.h
 
