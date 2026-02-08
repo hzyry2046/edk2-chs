@@ -2559,19 +2559,19 @@
 
   ## Default current ISO 639-2 language: English & French.
   # @Prompt Default Value of LangCodes Variable.
-  gEfiMdePkgTokenSpaceGuid.PcdUefiVariableDefaultLangCodes|"engfraengfra"|VOID*|0x0000001c
+  gEfiMdePkgTokenSpaceGuid.PcdUefiVariableDefaultLangCodes|"zhoengfra"|VOID*|0x0000001c
 
   ## Default current ISO 639-2 language: English.
   # @Prompt Default Value of Lang Variable.
-  gEfiMdePkgTokenSpaceGuid.PcdUefiVariableDefaultLang|"eng"|VOID*|0x0000001d
+  gEfiMdePkgTokenSpaceGuid.PcdUefiVariableDefaultLang|"zho"|VOID*|0x0000001d
 
   ## Default platform supported RFC 4646 languages: (American) English & French.
   # @Prompt Default Value of PlatformLangCodes Variable.
-  gEfiMdePkgTokenSpaceGuid.PcdUefiVariableDefaultPlatformLangCodes|"en;fr;en-US;fr-FR"|VOID*|0x0000001e
+  gEfiMdePkgTokenSpaceGuid.PcdUefiVariableDefaultPlatformLangCodes|"zh-Hans;en-US;fr-FR"|VOID*|0x0000001e
 
   ## Default current RFC 4646 language: (American) English.
   # @Prompt Default Value of PlatformLang Variable.
-  gEfiMdePkgTokenSpaceGuid.PcdUefiVariableDefaultPlatformLang|"en-US"|VOID*|0x0000001f
+  gEfiMdePkgTokenSpaceGuid.PcdUefiVariableDefaultPlatformLang|"zh-Hans"|VOID*|0x0000001f
 
   ## Indicates the default baud rate of UART.
   # @Prompt Default UART Baud Rate.
