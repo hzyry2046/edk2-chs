@@ -17,7 +17,7 @@
                                        #language zh-Hans  ""
 #string STR_NONE                       #language en-US  "NONE"
                                        #language fr-FR  "NONE"
-                                       #language zh-Hans  ""
+                                       #language zh-Hans  "\wide无\narrow"
 #string STR_MISSING_STRING             #language en-US  "Missing String"
                                        #language fr-FR  "Missing String"
                                        #language zh-Hans  "\wide字符串丢失\narrow"
