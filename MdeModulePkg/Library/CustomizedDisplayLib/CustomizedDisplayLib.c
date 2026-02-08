@@ -687,8 +687,9 @@ PrintStringAtWithWidth (
   IN CHAR16  *String,
   IN UINTN   Width
   )
-{
-  return PrintAt (Width, Column, Row, L"%s", String);
+{  
+    PrintAt (Width, Column, Row, L" ");
+    return PrintAt (0, Column, Row, L"%s", String);
 }
 
 /**

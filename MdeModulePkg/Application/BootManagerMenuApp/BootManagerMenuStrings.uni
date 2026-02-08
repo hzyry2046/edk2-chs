@@ -10,15 +10,20 @@
 
 #langdef   en-US "English"
 #langdef   fr-FR "Français"
+#langdef   zh-Hans "简体中文"
 
 #string STR_BOOT_POPUP_MENU_TITLE_STRING  #language    en-US    "Please select boot device:"
                                           #language    fr-FR    "Please select boot device:"
+                                          #language    zh-Hans    "\wide请选择启动设备\narrow"
 
 #string STR_BOOT_POPUP_MENU_HELP1_STRING  #language    en-US    "↑ and ↓ to move selection"
                                           #language    fr-FR    "↑ and ↓ to move selection"
+                                          #language    zh-Hans    "\wide按↑和↓进行选择\narrow"
 
 #string STR_BOOT_POPUP_MENU_HELP2_STRING  #language    en-US    "ENTER to select boot device"
                                           #language    fr-FR    "ENTER to select boot device"
+                                          #language    zh-Hans    "\wide回车以选择启动设备\narrow"
 
 #string STR_BOOT_POPUP_MENU_HELP3_STRING  #language    en-US    "ESC to exit"
                                           #language    fr-FR    "ESC to exit"
+                                          #language    zh-Hans    "\wide按ESC退出\narrow"
