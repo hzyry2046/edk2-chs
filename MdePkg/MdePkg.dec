@@ -2571,7 +2571,7 @@
 
   ## Default current RFC 4646 language: (American) English.
   # @Prompt Default Value of PlatformLang Variable.
-  gEfiMdePkgTokenSpaceGuid.PcdUefiVariableDefaultPlatformLang|"zh-Hans"|VOID*|0x0000001f
+  gEfiMdePkgTokenSpaceGuid.PcdUefiVariableDefaultPlatformLang|"en-US"|VOID*|0x0000001f
 
   ## Indicates the default baud rate of UART.
   # @Prompt Default UART Baud Rate.
