@@ -1,8 +1,2 @@
-Build/
-.DS_Store
-*_extdep/
-*.pyc
-__pycache__/
-tags/
-.vscode/
-.venv/
+# Created by venv; see https://docs.python.org/3/library/venv.html
+*
