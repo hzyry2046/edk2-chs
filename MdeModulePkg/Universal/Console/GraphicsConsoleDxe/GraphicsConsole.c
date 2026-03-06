@@ -541,8 +541,8 @@ GraphicsConsoleControllerDriverStart (
         break;
       }
     } else {
-      if ((Private->ModeData[Index].Columns > Column) &&
-          (Private->ModeData[Index].Rows > Row))
+      if ((Private->ModeData[Index].Columns >= Column) &&
+          (Private->ModeData[Index].Rows >= Row))
       {
         Column     = Private->ModeData[Index].Columns;
         Row        = Private->ModeData[Index].Rows;

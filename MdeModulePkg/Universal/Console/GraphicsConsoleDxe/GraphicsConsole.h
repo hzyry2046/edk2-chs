@@ -6,8 +6,7 @@ SPDX-License-Identifier: BSD-2-Clause-Patent
 
 **/
 
-#ifndef _GRAPHICS_CONSOLE_H_
-#define _GRAPHICS_CONSOLE_H_
+#pragma once
 
 #include <Uefi.h>
 #include <Protocol/SimpleTextOut.h>
@@ -577,5 +576,3 @@ CheckModeSupported (
   IN  UINT32                    VerticalResolution,
   OUT UINT32                    *CurrentModeNumber
   );
-
-#endif
