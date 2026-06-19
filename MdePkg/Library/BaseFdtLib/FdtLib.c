@@ -2,6 +2,8 @@
   Flattened Device Tree Library.
 
   Copyright (c) 2023, Intel Corporation. All rights reserved.<BR>
+  Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries. All rights reserved.<BR>
+
   SPDX-License-Identifier: BSD-2-Clause-Patent
 
 **/
@@ -430,6 +432,55 @@ FdtStringListContains (
 }
 
 /**
+  Returns the number of strings in the given property.
+
+  @param[in] Fdt            The pointer to FDT blob.
+  @param[in] NodeOffset     The offset to the given node.
+  @param[in] Property       Name of the property containing the string list.
+
+  @return The number of strings in the property, or a negative error code
+          on failure. Returns -FDT_ERR_BADVALUE if the property value is
+          not a valid NUL-terminated string list.
+
+**/
+INT32
+EFIAPI
+FdtStringListCount (
+  IN CONST VOID   *Fdt,
+  IN INT32        NodeOffset,
+  IN CONST CHAR8  *Property
+  )
+{
+  return fdt_stringlist_count (Fdt, NodeOffset, Property);
+}
+
+/**
+  Searches for a string in a string list property and returns its index.
+
+  @param[in] Fdt            The pointer to FDT blob.
+  @param[in] NodeOffset     The offset to the given node.
+  @param[in] Property       The name of the property to search.
+  @param[in] String         String to find within the list.
+
+  @return The index of the string in the string list (>=0) on success,
+          -FDT_ERR_NOTFOUND if the string is not found,
+          -FDT_ERR_BADVALUE if the property is not a valid NUL-terminated
+          string list, or another negative error code on failure.
+
+**/
+INT32
+EFIAPI
+FdtStringListSearch (
+  IN CONST VOID   *Fdt,
+  IN INT32        NodeOffset,
+  IN CONST CHAR8  *Property,
+  IN CONST CHAR8  *String
+  )
+{
+  return fdt_stringlist_search (Fdt, NodeOffset, Property, String);
+}
+
+/**
   Returns a property with the given name from the given node.
 
   @param[in] Fdt            The pointer to FDT blob.
@@ -795,9 +846,9 @@ FdtPathOffset (
 CONST CHAR8 *
 EFIAPI
 FdtGetName (
-  IN VOID   *Fdt,
-  IN INT32  NodeOffset,
-  IN INT32  *Length
+  IN CONST VOID  *Fdt,
+  IN INT32       NodeOffset,
+  IN INT32       *Length
   )
 {
   return fdt_get_name (Fdt, NodeOffset, Length);
@@ -816,10 +867,10 @@ FdtGetName (
 INT32
 EFIAPI
 FdtGetPath (
-  IN VOID    *Fdt,
-  IN INT32   NodeOffset,
-  IN VOID    *Buffer,
-  IN UINT32  BufferSize
+  IN CONST VOID  *Fdt,
+  IN INT32       NodeOffset,
+  IN VOID        *Buffer,
+  IN UINT32      BufferSize
   )
 {
   return fdt_get_path (Fdt, NodeOffset, Buffer, BufferSize);
@@ -919,27 +970,44 @@ FdtGetPhandle (
 }
 
 /**
+  Find and return the highest phandle in a tree. The value returned in Phandle
+  is only valid if the function returns success.
+
+  @param[in]  Fdt            The pointer to FDT blob.
+  @param[out] Phandle        The return location for the highest Phandle value found in the tree
+
+  @return 0 on success or a negative error code on failure
+**/
+INT32
+EFIAPI
+FdtFindMaxPhandle (
+  IN CONST VOID  *Fdt,
+  OUT UINT32     *Phandle
+  )
+{
+  return fdt_find_max_phandle (Fdt, Phandle);
+}
+
+/**
   Applies a DT overlay on a base DT.
 
-  @param[in] Fdt            The pointer to FDT blob.
-  @param[in] Fdto           The pointer to FDT overlay blob.
+  @param[in,out] Fdt        The pointer to FDT blob.
+  @param[in]     Fdto       The pointer to FDT overlay blob.
 
-  @return 0 on success, or negative error code.
+  @return 0 on success, or negative error code on failure.
 **/
 INT32
 EFIAPI
 FdtOverlayApply (
-  IN VOID  *Fdt,
-  IN VOID  *Fdto
+  IN OUT VOID  *Fdt,
+  IN     VOID  *Fdto
   )
 {
   return fdt_overlay_apply (Fdt, Fdto);
 }
 
 /* Debug functions. */
-CONST
-CHAR8
-*
+CONST CHAR8 *
 FdtStrerror (
   IN INT32  ErrVal
   )

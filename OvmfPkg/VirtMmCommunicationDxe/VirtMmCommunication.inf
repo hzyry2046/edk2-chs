@@ -13,7 +13,7 @@
   MODULE_TYPE                    = DXE_RUNTIME_DRIVER
   VERSION_STRING                 = 1.0
   ENTRY_POINT                    = VirtMmCommunication2Initialize
-  VALID_ARCHITECTURES            = X64 AARCH64 RISCV64
+  VALID_ARCHITECTURES            = X64 AARCH64 RISCV64 LOONGARCH64
 
 [Sources]
   VirtMmCommunication.c
@@ -22,18 +22,23 @@
 #  QemuX64.c
   QemuHwInfo.c
   QemuMmio.c
+  Svsm.c
 
-[Sources.AARCH64, Sources.RISCV64]
+[Sources.AARCH64, Sources.RISCV64, Sources.LOONGARCH64]
   QemuFdt.c
   QemuMmio.c
+  SvsmNull.c
 
 [Packages]
   MdePkg/MdePkg.dec
   MdeModulePkg/MdeModulePkg.dec
   OvmfPkg/OvmfPkg.dec
 
-[Packages.AARCH64, Packages.RISCV64]
+[Packages.AARCH64, Packages.RISCV64, Packages.LOONGARCH64]
   EmbeddedPkg/EmbeddedPkg.dec
+
+[Packages.X64]
+  UefiCpuPkg/UefiCpuPkg.dec
 
 [LibraryClasses]
   BaseMemoryLib
@@ -47,8 +52,9 @@
 [LibraryClasses.X64]
   DxeHardwareInfoLib
   QemuFwCfgLib
+  AmdSvsmLib
 
-[LibraryClasses.AARCH64, LibraryClasses.RISCV64]
+[LibraryClasses.AARCH64, LibraryClasses.RISCV64, LibraryClasses.LOONGARCH64]
   FdtLib
 
 [FeaturePcd]
@@ -60,7 +66,7 @@
   gEfiMmCommunication2ProtocolGuid              ## PRODUCES
   gEfiSmmVariableProtocolGuid                   ## PRODUCES
 
-[Protocols.AARCH64, Protocols.RISCV64]
+[Protocols.AARCH64, Protocols.RISCV64, Protocols.LOONGARCH64]
   gFdtClientProtocolGuid
 
 [Guids]
@@ -72,5 +78,5 @@
 [Depex]
   gEfiCpuArchProtocolGuid
 
-[Depex.AARCH64, Depex.RISCV64]
+[Depex.AARCH64, Depex.RISCV64, Depex.LOONGARCH64]
   gFdtClientProtocolGuid
